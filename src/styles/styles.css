@@ -1,0 +1,34 @@
+/* colors:
+#f1f2f3
+#fff
+#bddeff
+*/
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  background-image: url(../img/bg_clouds.svg);
+  background-size: cover;
+}
+
+.weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: transparent;
+  border: 5px white;
+  width: 400px;
+  height: 400px;
+}
+
+.wrapper {
+  margin: auto;
+}
