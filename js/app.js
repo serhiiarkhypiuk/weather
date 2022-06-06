@@ -1,62 +1,54 @@
-//setup before functions
-const block = document.getElementById('weather')
-const input = document.getElementById('cityInput')
+const block = document.getElementById("weather");
+const input = document.getElementById("cityInput");
 
-async function fetchWeather(cityName, units = 'metric') {
+async function fetchWeather(cityName, units = "metric") {
   block.innerHTML = `
     <div class="weather__loading">
       <img src="./img/loading.svg" alt="Loading..." />
-    </div>`
-  
-  const apiKey = 'c37cf2462181449872f58fc1307268b9'
-  const baseUrl = 'https://api.openweathermap.org/data/2.5/weather?'
+    </div>`;
 
-  const response = await fetch(`${baseUrl}q=${cityName}&units=${units}&appid=${apiKey}`)
-  const responseResult = await response.json()
+  const apiKey = "c37cf2462181449872f58fc1307268b9";
+  const baseUrl = "https://api.openweathermap.org/data/2.5/weather?";
+
+  const response = await fetch(
+    `${baseUrl}q=${cityName}&units=${units}&appid=${apiKey}`
+  );
+  const responseResult = await response.json();
 
   if (response.ok) {
-    getWeather(responseResult)
+    getWeather(responseResult);
   }
-  if (responseResult.message === 'city not found') {
+  if (responseResult.message === "city not found") {
     block.innerHTML = `
-    <span class="error">We can't find such city</span>`
+    <span class="error">We can't find such city 🥲 </span>`;
   }
 }
 
 function getWeather(data) {
-  const location = data.name
-  const temp = Math.round(data.main.temp)
-  const feelsLike = Math.round(data.main.feels_like)
-  const weatherStatus = data.weather[0].main
-  const weatherDescription = data.weather[0].description
-  const weatherIcon = data.weather[0].icon
+  const location = data.name;
+  const temp = Math.round(data.main.temp);
+  const feelsLike = Math.round(data.main.feels_like);
+  const weatherStatus = data.weather[0].main;
+  const weatherIcon = data.weather[0].icon;
 
   const template = `
-    <div class="weather__header">
-      <div class="weather__main">
-        <div class="weather__status">${weatherStatus} in ${location}</div>
-      </div>
-      <div class="weather__icon">
-        <img src="http://openweathermap.org/img/w/${weatherIcon}.png" alt="${weatherStatus}" />
-      </div>
-    </div>
-    <div class="weather__temp">Temperature: ${temp}</div>
-    <div class="weather__feels-like">Feels like: ${feelsLike}</div>
-  `
+    <div class="weather__status"><img src="http://openweathermap.org/img/w/${weatherIcon}.png" alt="${weatherStatus}" /><span> in ${location}</span></div>
+    <div class="weather__temp">Temperature is ${temp}&#8451; and it feels like ${feelsLike}&#8451;</div>
+  `;
 
-  block.innerHTML = template
+  block.innerHTML = template;
 }
 
-let timeout = null
+let timeout = null;
 
-input.addEventListener('keyup', function (e) {
-  clearTimeout(timeout)
+input.addEventListener("keyup", function (e) {
+  clearTimeout(timeout);
   if (!input.value) {
-    block.innerHTML = ``
-    return
+    block.innerHTML = ``;
+    return;
   }
 
   timeout = setTimeout(() => {
-    fetchWeather(input.value)
-  }, 1000)
-})
+    fetchWeather(input.value);
+  }, 1000);
+});
