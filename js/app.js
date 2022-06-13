@@ -25,6 +25,7 @@ async function fetchWeather(cityName, units = "metric") {
 }
 
 function getWeather(data) {
+  const description = data.weather[0].description;
   const location = data.name;
   const temp = Math.round(data.main.temp);
   const feelsLike = Math.round(data.main.feels_like);
@@ -32,7 +33,7 @@ function getWeather(data) {
   const weatherIcon = data.weather[0].icon;
 
   const template = `
-    <div class="weather__status"><img src="http://openweathermap.org/img/w/${weatherIcon}.png" alt="${weatherStatus}" /><span> in ${location}</span></div>
+    <div class="weather__status"><img title="${description}" src="http://openweathermap.org/img/w/${weatherIcon}.png" alt="${weatherStatus}" /><span> in ${location}</span></div>
     <div class="weather__temp">Temperature is ${temp}&#8451; and it feels like ${feelsLike}&#8451;</div>
   `;
 
