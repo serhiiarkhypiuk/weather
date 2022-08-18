@@ -4,6 +4,7 @@ import api from "./services/fetch";
 import SearchForm from "./Components/SearchForm";
 import Loader from "./Components/Loader";
 import ErrorView from "./Components/Error";
+import Button from "./Components/Button";
 
 function App() {
   const [cityName, setCityName] = useState("");
@@ -15,6 +16,8 @@ function App() {
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   const [status, setStatus] = useState("idle");
+  const [isDisplayed, setIsDisplayed] = useState(false);
+  const [className, setClassName] = useState("");
 
   useEffect(() => {
     document.title = "Weather widget";
@@ -31,13 +34,23 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cityName]);
 
+  useEffect(() => {
+    if (status === "resolved") {
+      setInterval(() => {
+        setIsDisplayed(true);
+      }, 1750);
+      setClassName("confirm");
+    } else {
+      setIsDisplayed(false);
+    }
+  }, [status]);
+
   const fetchWeather = () => {
     setStatus("pending");
 
     api
       .getWeather(cityName)
       .then((data) => {
-        console.log(data);
         setDescription(data.weather[0].description);
         setTemp(Math.round(data.main.temp));
         setFeelsLike(Math.round(data.main.feels_like));
@@ -74,6 +87,14 @@ function App() {
             Temperature is {temp}&#8451; and it feels like {feelsLike}&#8451;
           </div>
         </div>
+      )}
+
+      {status === "resolved" && isDisplayed && (
+        <Button
+          className={className}
+          btnText="Search another city"
+          onClick={() => setStatus("idle")}
+        />
       )}
 
       {status === "rejected" && <ErrorView message={error.message} />}
