@@ -1,3 +1,3 @@
-# weather
+# Weather widget
 
-A weather widget was made as a part of JS api requesting practice
+A weather widget was created using React as a part of api requesting practice
