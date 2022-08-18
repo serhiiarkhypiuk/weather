@@ -1,0 +1,52 @@
+/* colors:
+#f1f2f3
+#fff
+#bddeff
+*/
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  background-image: url(../public/bg_clouds.svg);
+  background-size: cover;
+  color: #5798da;
+}
+
+.weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 5px white;
+  font-size: 22px;
+}
+
+.weather__status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper {
+  margin: auto;
+  margin-top: 13rem;
+}
+
+input {
+  width: 100%;
+  height: 55px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 0 2rem;
+  margin-top: 5rem;
+  opacity: 0.5;
+  color: #5798da;
+  outline: none;
+}
